@@ -1,0 +1,67 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    margin: 0;
+  }
+  
+  .login-container {
+    width: 400px; /* 로그인 창 너비 늘리기 */
+    margin: 0 auto; /* 가운데 정렬 */
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .login-heading {
+    margin-bottom: 20px;
+  }
+  
+  .login-input {
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .login-input label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  
+  .login-input input,
+  .login-button,
+  .signup-button {
+    width: calc(100% - 20px);
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  .login-button,
+  .signup-button {
+    margin-top: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-button:hover,
+  .signup-button:hover {
+    background-color: #45a049;
+  }
+  
+  .signup-button {
+    margin-top: 5px;
+    background-color: #008CBA;
+  }
+  
+  .signup-button:hover {
+    background-color: #005f6b;
+  }
+  

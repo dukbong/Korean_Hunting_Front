@@ -1,0 +1,47 @@
+.jenkins-signup-container {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .jenkins-signup-heading {
+    margin-bottom: 20px;
+  }
+  
+  .jenkins-signup-input {
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .jenkins-signup-input label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  
+  .jenkins-signup-input input,
+  .jenkins-signup-button {
+    width: calc(100% - 20px);
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  .jenkins-signup-button {
+    margin-top: 10px;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .jenkins-signup-button:hover {
+    background-color: #005f6b;
+  }
+  

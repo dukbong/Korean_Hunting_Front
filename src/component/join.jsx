@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import { useNavigate } from 'react-router-dom'; // useHistory 대신 useNavigate 사용
 import './css/signup.css';
 
@@ -9,14 +10,28 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
 
-  const handleSignUp = () => {
-    console.log('Username:', username);
-    console.log('Password:', password);
-    console.log('Email:', email);
-    console.log('company:', company);
-    // 회원가입 로직 추가
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
 
-    navigate('/login');
+  const handleSignUp = () => {
+
+    axios.post("/join", {
+      userId: username,
+      userPwd: password,
+      email: email,
+      company: company
+    }).then((res) => {
+      console.log(res.data);
+      navigate('/login');
+    }).catch((error) => {
+      console.log(error.response.data.message);
+      alert(error.response.data.message);
+    })
+
   };
 
   return (

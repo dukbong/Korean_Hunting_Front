@@ -1,25 +1,49 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // useHistory 대신 useNavigate 사용
-import './css/login.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // useHistory 대신 useNavigate 사용
+import axios from "axios";
+import { useUser } from "./userContext";
+import "./css/login.css";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { setUserId } = useUser(); // UserContext에서 setUserId 가져오기
+
   const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
+
   const handleLogin = () => {
-    // Jenkins에 대한 로그인 요청을 처리하는 함수
-    // 예를 들어, axios 또는 fetch를 사용하여 API 호출할 수 있음
-    console.log('Username:', username);
-    console.log('Password:', password);
-    // 이 곳에서 Jenkins에 대한 실제 로그인 요청을 보낼 수 있음
+    axios
+      .post("/login", { userId: username, userPwd: password })
+      .then((response) => {
+        const token = response.data.accessToken;
+        if (token) {
+          localStorage.setItem("token", token);
+          setUserId(username);
+          navigate("/dashboard");
+        }
+      })
+      .catch((error) => {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          alert(error.response.data.message);
+        } else {
+          alert("로그인 중 오류가 발생했습니다.");
+        }
+      });
   };
 
   const handleSignup = () => {
-    // 회원가입 페이지로 이동하는 함수
-    console.log('Redirect to signup page');
-    navigate('/signup'); // useHistory 대신 useNavigate 사용
-    // 이 곳에서 회원가입 페이지로 이동하는 로직을 추가할 수 있음
+    navigate("/join");
   };
 
   return (

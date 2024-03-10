@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useUser } from "./userContext";
 import axios from "axios";
+import "./css/navigation.css";
 
 const Navigation = () => {
   const { userId } = useUser(); // UserContext에서 userId 가져오기
@@ -29,24 +30,27 @@ const Navigation = () => {
       });
   };
 
-  if (isAuthenticated && !isLoginPage && !isJoinPage) {
-    return (
-      <nav>
+  // if (isAuthenticated && !isLoginPage && !isJoinPage) {
+  return (
+    <nav className="nav-container">
+      <div className="left-content">
+        <span>Korean Hunting</span>
+      </div>
+      <div className="right-content">
         <ul>
-          <>
-            <li>
-              <span>Welcome : {userId} 님</span>
-            </li>
-            <li>
-              <button onClick={handleLogout}>Logout</button>
-            </li>
-          </>
+          <li>
+            <span>asdfasdf</span>
+          </li>
+          <li>
+            <button onClick={handleLogout}>| Logout</button>
+          </li>
         </ul>
-      </nav>
-    );
-  } else {
-    return null;
-  }
+      </div>
+    </nav>
+  );
+  // } else {
+  // return null;
+  // }
 };
 
 export default Navigation;

@@ -1,0 +1,29 @@
+.dashboard-container {
+    display: flex;
+    width: 100vw; /* 웹 페이지의 전체 가로 길이 */
+  }
+  
+  .file-upload-container,
+  .scroll-container {
+    flex: 1; /* 가로 방향으로 동일한 공간을 차지하도록 설정 */
+    border: 1px solid #ccc;
+  }
+  
+  .file-upload-container {
+    margin-right: 10px; /* 왼쪽과 오른쪽 사이 간격 조정 */
+    margin-left: 50px;
+  }
+  
+  .scroll-container {
+    overflow-y: scroll; /* 세로 스크롤바 표시 */
+    margin-left: 10px; /* 왼쪽 여백 추가 */
+    margin-right: 50px;
+  }
+  
+  .ad-image {
+    width: 700px;
+    height: 50px;
+    display: block;
+    margin: 0 auto; /* 수평 가운데 정렬 */
+  }
+  

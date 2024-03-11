@@ -17,39 +17,39 @@ const Navigation = () => {
   const isAuthenticated = !!localStorage.getItem("token");
 
   const handleLogout = () => {
-    const token = localStorage.getItem("token");
-    axios
-      .get("/logout", { headers: { Authorization: `Bearer ${token}` } })
-      .then((res) => {
-        console.log("logout!");
-        localStorage.removeItem("token");
-        navigate("/login");
-      })
-      .catch((err) => {
-        console.log("error!");
-      });
+      const token = localStorage.getItem("token");
+      axios
+        .get("/logout", { headers: { Authorization: `Bearer ${token}` } })
+        .then((res) => {
+          console.log("logout!");
+          localStorage.removeItem("token");
+          navigate("/login");
+        })
+        .catch((err) => {
+          console.log("error!");
+        });
   };
 
   if (isAuthenticated && !isLoginPage && !isJoinPage) {
-  return (
-    <nav className="nav-container">
-      <div className="left-content">
-        <span>Korean Hunting</span>
-      </div>
-      <div className="right-content">
-        <ul>
-          <li>
-            <span>asdfasdf</span>
-          </li>
-          <li>
-            <button onClick={handleLogout}>| Logout</button>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  );
+    return (
+      <nav className="nav-container">
+        <div className="left-content">
+          <span>Korean Hunting</span>
+        </div>
+        <div className="right-content">
+          <ul>
+            <li>
+              <span>{userId}</span>
+            </li>
+            <li>
+              <button onClick={handleLogout}>| Logout</button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    );
   } else {
-  return null;
+    return null;
   }
 };
 

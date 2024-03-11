@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './css/dashboard.css';
 import adImage from './image/test.jpg';
+import axios from "axios";
 
 function DashBoard() {
 
@@ -12,7 +13,7 @@ function DashBoard() {
     if (!token) {
       navigate("/login");
     }
-  }, [navigate]);
+  }, [navigate]); 
 
   const [file, setFile] = useState(null);
 

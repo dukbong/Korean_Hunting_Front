@@ -30,7 +30,7 @@ const Navigation = () => {
       });
   };
 
-  // if (isAuthenticated && !isLoginPage && !isJoinPage) {
+  if (isAuthenticated && !isLoginPage && !isJoinPage) {
   return (
     <nav className="nav-container">
       <div className="left-content">
@@ -48,9 +48,9 @@ const Navigation = () => {
       </div>
     </nav>
   );
-  // } else {
-  // return null;
-  // }
+  } else {
+  return null;
+  }
 };
 
 export default Navigation;

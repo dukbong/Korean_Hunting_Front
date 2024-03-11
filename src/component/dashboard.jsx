@@ -7,12 +7,12 @@ function DashBoard() {
 
   const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   if (!token) {
-  //     navigate("/login");
-  //   }
-  // }, [navigate]);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const [file, setFile] = useState(null);
 

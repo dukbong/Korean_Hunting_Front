@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "./apiIntercepter";
 
 const AdminUsers = () => {
   const [userInfoList, setUserInfoList] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    axios
+    axiosInstance
       .get("/admin/get/users", {
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -15,11 +16,13 @@ const AdminUsers = () => {
         setUserInfoList(response.data.message);
       })
       .catch((error) => {
-        console.log(error);
-        localStorage.setItem(
-            "token",
-            error.response.headers.authorization.substring(7)
-          );
+          if(error.response.status === 401){
+            setErrorMsg("읽을 권한이 없습니다.");
+          }else{
+            setErrorMsg(
+              "정보를 불러오는데 실패했습니다. 다시 시도해주시기 바랍니다."
+            );
+          }
       });
   }, []);
 
@@ -38,7 +41,7 @@ const AdminUsers = () => {
           ))}
         </div>
       ) : (
-        <p>정보를 불러오는데 실패했습니다.</p>
+        <p>{errorMsg}</p>
       )}
     </div>
   );

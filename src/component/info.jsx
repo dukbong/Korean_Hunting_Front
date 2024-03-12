@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
+import axiosInstance from "./apiIntercepter";
 
 const UserInfo = () => {
   const [userInfo, setUserInfo] = useState(null); // 유저 정보 상태
@@ -14,16 +15,13 @@ const UserInfo = () => {
     if (!token) {
       navigate("/login");
     } else {
-      axios
+      axiosInstance
         .get("/info", { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
           setUserInfo(response.data);
         })
         .catch((error) => {
-          localStorage.setItem(
-            "token",
-            error.response.headers.authorization.substring(7)
-          );
+          console.log(error);
           setErrorMsg(
             "정보를 불러오는데 실패했습니다. 다시 시도해주시기 바랍니다."
           );

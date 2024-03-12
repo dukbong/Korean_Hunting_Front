@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './css/dashboard.css';
 import adImage from './image/test.jpg';
-import axios from "axios";
+import axiosInstance from "./apiIntercepter";
 
 function DashBoard() {
 

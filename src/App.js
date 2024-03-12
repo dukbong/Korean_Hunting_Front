@@ -9,13 +9,11 @@ import SignUp from "./component/join"; // 로그인 컴포넌트
 import Info from "./component/info"; // 다른 페이지 컴포넌트
 import Dashboard from "./component/dashboard"; // 다른 페이지 컴포넌트
 import Navigation from './component/navigation';
-import { UserProvider } from './component/userContext';
 import AdminUsers from "./component/admin";
 
 function App() {
 
   return (
-    <UserProvider>
     <Router>
       <Navigation />
       <Routes>
@@ -27,7 +25,6 @@ function App() {
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </Router>
-    </UserProvider>
   );
 }
 

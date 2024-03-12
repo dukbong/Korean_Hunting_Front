@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // useHistory 대신 useNavigate 사용
 import axios from "axios";
-import { useUser } from "./userContext";
+import useUserStore from './useUserStore'; // useUserStore 불러오기
 import "./css/login.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setUserId } = useUser(); // UserContext에서 setUserId 가져오기
-
+  const { setUserId } = useUserStore();
   const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
 
   useEffect(() => {

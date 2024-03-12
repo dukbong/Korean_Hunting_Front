@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useUser } from "./userContext";
+import useUserStore from "./useUserStore"; // useUserStore 불러오기
 import axios from "axios";
 import "./css/navigation.css";
 
 const Navigation = () => {
-  const { userId } = useUser(); // UserContext에서 userId 가져오기
+  const { userId, setUserId } = useUserStore();
   const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
   const location = useLocation();
 
@@ -23,6 +23,7 @@ const Navigation = () => {
         .then((res) => {
           console.log("logout!");
           localStorage.removeItem("token");
+          setUserId("");
           navigate("/login");
         })
         .catch((err) => {

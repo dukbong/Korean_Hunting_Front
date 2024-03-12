@@ -23,6 +23,7 @@ const Navigation = () => {
         .then((res) => {
           console.log("logout!");
           localStorage.removeItem("token");
+          localStorage.removeItem("userId");
           setUserId("");
           navigate("/login");
         })

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
 import axiosInstance from "./apiIntercepter";
 
 const UserInfo = () => {
   const [userInfo, setUserInfo] = useState(null); // 유저 정보 상태
   const [errorMsg, setErrorMsg] = useState(""); // 유저 정보 상태
-
   const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
 
   useEffect(() => {

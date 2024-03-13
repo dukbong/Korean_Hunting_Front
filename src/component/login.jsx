@@ -18,6 +18,10 @@ const Login = () => {
   }, [navigate]);
 
   const handleLogin = () => {
+    if(!(username && password)){
+      alert("로그인에 실패하였습니다.");
+      return;
+    }
     axios
       .post("/login", { userId: username, userPwd: password })
       .then((response) => {
@@ -25,7 +29,6 @@ const Login = () => {
         if (token) {
           localStorage.setItem("token", token);
           setUserId(username);
-          localStorage.setItem("userId", username);
           navigate("/dashboard");
         }
       })
@@ -51,19 +54,19 @@ const Login = () => {
       <h2 className="login-heading">Login</h2>
       <form>
         <div className="login-input">
-          <label>사용자 이름:</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            placeholder="ID"
           />
         </div>
         <div className="login-input">
-          <label>비밀번호:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="PASSWORD"
           />
         </div>
         <button type="button" onClick={handleLogin} className="login-button">

@@ -1,0 +1,32 @@
+.jenkins-user-info-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .jenkins-user-info-heading {
+    margin-bottom: 20px;
+  }
+  
+  .jenkins-user-info-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .jenkins-user-info-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .jenkins-user-info-table td:first-child {
+    font-weight: bold;
+  }
+  
+  .jenkins-user-info-table td:last-child {
+    text-align: right;
+  }
+  

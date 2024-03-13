@@ -1,47 +1,61 @@
 .jenkins-signup-container {
-    width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
-  }
-  
-  .jenkins-signup-heading {
-    margin-bottom: 20px;
-  }
-  
-  .jenkins-signup-input {
-    margin-bottom: 10px;
-    width: 100%;
-    text-align: left;
-  }
-  
-  .jenkins-signup-input label {
-    display: block;
-    margin-bottom: 5px;
-    text-align: left;
-  }
-  
-  .jenkins-signup-input input,
-  .jenkins-signup-button {
-    width: calc(100% - 20px);
-    padding: 8px;
-    font-size: 16px;
-  }
-  
-  .jenkins-signup-button {
-    margin-top: 10px;
-    background-color: #008CBA;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .jenkins-signup-button:hover {
-    background-color: #005f6b;
-  }
-  
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.jenkins-signup-heading {
+  margin-bottom: 20px;
+}
+
+.jenkins-signup-input {
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: left;
+}
+
+.jenkins-signup-input label {
+  display: block;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.jenkins-signup-input input,
+.jenkins-signup-button,
+.back-button {
+  width: calc(100% - 20px);
+  padding: 8px;
+  font-size: 16px;
+}
+
+.jenkins-signup-button {
+  margin-top: 10px;
+  background-color: #008CBA; /* 파란 계열 */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.jenkins-signup-button:hover {
+  background-color: #005f6b;
+}
+
+.back-button {
+  margin-top: 10px;
+  background-color: #ff6347; /* 붉은 계열 */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #cc4c3e;
+}

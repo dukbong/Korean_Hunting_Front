@@ -32,18 +32,24 @@ const Navigation = () => {
         });
   };
 
+  const handleMain = () => {
+    navigate("/dashboard");
+  };
+
+  const handleUserIdClick = () => {
+    navigate("/info");
+  };
+
   if (isAuthenticated && !isLoginPage && !isJoinPage) {
     return (
       <nav className="nav-container">
-        <div className="left-content">
+        <div className="left-content" onClick={handleMain}>
           <span>Korean Hunting</span>
         </div>
         <div className="right-content">
           <ul>
             <li>
-              <span>{userId}</span>
-            </li>
-            <li>
+              <span onClick={handleUserIdClick}><button>{userId}</button></span>
               <button onClick={handleLogout}>| Logout</button>
             </li>
           </ul>

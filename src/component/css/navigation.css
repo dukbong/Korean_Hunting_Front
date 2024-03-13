@@ -1,53 +1,59 @@
 /* Navigation.css */
 
 .nav-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: #80F;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .nav-container .left-content {
-    color: white; /* 텍스트를 하얀색으로 설정 */
-    margin-left: 10px; /* 왼쪽 여백 추가 */
-  }
-  
-  .nav-container .right-content {
-    text-align: right;
-  }
-  
-  .nav-container .right-content ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-  }
-  
-  .nav-container .right-content ul li {
-    margin-left: 5px;
-  }
-  
-  .nav-container .right-content ul li:first-child {
-    margin-left: 5px;
-  }
-  
-  .nav-container .right-content span {
-    color: white;
-  }
-  
-  .nav-container .right-content button {
-    font-weight: bolder;
-    color: white;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    margin-left: auto; /* 로그아웃 버튼을 오른쪽으로 이동 */
-    margin-right: 20px; /* 오른쪽 여백 추가 */
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #008CBA; /* 배경색 변경 */
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  /* z-index: 1000; */
+}
+
+.nav-container .left-content {
+  color: white;
+  margin-left: 10px;
+  cursor: pointer; /* 마우스 커서 변경 */
+}
+
+.nav-container .left-content span {
+  font-weight: bold; /* 글자 두껍게 */
+}
+
+.nav-container .right-content ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.nav-container .right-content ul li {
+  margin-left: 20px; /* 간격 조정 */
+}
+
+.nav-container .right-content span {
+  color: white;
+  font-weight: bold;
+}
+
+.nav-container .right-content button {
+  font-weight: bold;
+  color: #008CBA; /* 버튼 색상 변경 */
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 8px 15px;
+  margin-right: 25px;
+  transition: background-color 0.3s, color 0.3s; /* 변화 부드럽게 */
+}
+
+.nav-container .right-content button:hover {
+  background-color: #005f6b; /* 호버 시 색상 변경 */
+  color: white;
+}

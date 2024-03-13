@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "./apiIntercepter";
+import './css/info.css';
 
 const UserInfo = () => {
   const [userInfo, setUserInfo] = useState(null); // 유저 정보 상태
@@ -28,13 +29,26 @@ const UserInfo = () => {
   }, [navigate]);
 
   return (
-    <div>
+    <div className="jenkins-user-info-container">
       {userInfo ? (
         <div>
-          <h2>User Info</h2>
-          <p>Username: {userInfo.userId}</p>
-          <p>Email: {userInfo.email}</p>
-          <p>Email: {userInfo.company}</p>
+          <h2 className="jenkins-user-info-heading">회원 정보</h2>
+          <table className="jenkins-user-info-table">
+            <tbody>
+              <tr>
+                <td>Username:</td>
+                <td>{userInfo.userId}</td>
+              </tr>
+              <tr>
+                <td>Email:</td>
+                <td>{userInfo.email}</td>
+              </tr>
+              <tr>
+                <td>Company:</td>
+                <td>{userInfo.company}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       ) : (
         <p>{errorMsg}</p>

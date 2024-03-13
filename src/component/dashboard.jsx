@@ -61,6 +61,7 @@ function DashBoard() {
       })
       .then((res) => {
         console.log(convertToHierarchy(res.data.directory));
+        const hierarchy = convertToHierarchy(res.data.directory);
         setDirectory(res.data.directory);
       })
       .catch((err) => {
@@ -71,32 +72,28 @@ function DashBoard() {
     }
   };
 
-  // 계층으로 표현하기 위한 함수... 아직 작성중.
-  function convertToHierarchy(data) {
-    const hierarchy = [];
+  // 계층으로 표현하기 위한 함수
+  const convertToHierarchy = (files) => {
+    const hierarchy = {};
   
-    data.forEach((item) => {
-      const parts = item.split("\\");
+    files.forEach((filePath) => {
+      const segments = filePath.split("\\");
       let currentLevel = hierarchy;
   
-      parts.forEach((part, index) => {
-        const existingPath = currentLevel.find((node) => node.name === part);
-        if (existingPath) {
-          currentLevel = existingPath.children;
-        } else {
-          const newNode = { name: part, children: [] };
-          currentLevel.push(newNode);
-          currentLevel = newNode.children;
+      segments.forEach((segment, index) => {
+        if (!currentLevel[segment]) {
+          currentLevel[segment] = {};
         }
-  
-        if (index === parts.length - 1) {
-          currentLevel.push({ name: part, type: "file" });
+        if (index === segments.length - 1) {
+          currentLevel[segment] = filePath; // 마지막 세그먼트에 파일 경로 할당
+        } else {
+          currentLevel = currentLevel[segment];
         }
       });
     });
   
     return hierarchy;
-  }
+  };
 
   return (
     <div>

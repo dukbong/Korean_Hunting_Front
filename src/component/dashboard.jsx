@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './css/dashboard.css';
-import adImage from './image/test.jpg';
 import axiosInstance from "./apiIntercepter";
 import Modal from "./modal"; // Modal 컴포넌트 임포트
+import DisplayAds from "./displayads";
 
 function DashBoard() {
 
@@ -182,7 +182,7 @@ function DashBoard() {
           )}
         </div>
       <div className="ads">
-        <img src={adImage} alt="광고" className="ad-image" />
+        <DisplayAds />
       </div>
         {/* 모달 */}
         <Modal isOpen={isModalOpen} onClose={closeModal}>

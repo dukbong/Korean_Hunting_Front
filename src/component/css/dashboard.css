@@ -81,10 +81,24 @@ h1 {
   max-height: 200px; /* 이미지의 최대 높이를 설정합니다. */
 }
 
-.content p {
-  margin: 5px 0;
+.tree {
+  list-style-type: none;
+  padding-left: 30px;
 }
 
-.content p.red {
+.tree-node {
+  margin-bottom: 5px;
+}
+
+.tree-node .node {
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  font-family: 'Arial', sans-serif; /* 원하는 폰트로 변경하세요 */
+  font-size: 16px; /* 원하는 글자 크기로 변경하세요 */
+}
+
+.tree-node.insert .node {
   color: red;
+  background-color: #f7d2d2; /* 빨간색 배경색상 */
 }

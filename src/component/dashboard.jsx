@@ -25,6 +25,7 @@ function DashBoard() {
     if(selectedFile){
       DateConvertString(selectedFile.lastModifiedDate);
     }else{
+      setDirectory("");
       setModifyDate("");
     }
   };
@@ -60,9 +61,14 @@ function DashBoard() {
         }
       })
       .then((res) => {
-        console.log(convertToHierarchy(res.data.directory));
         const hierarchy = convertToHierarchy(res.data.directory);
-        setDirectory(res.data.directory);
+        setDirectory(hierarchy);
+
+        console.log(res);
+        const fileNameWithoutExtension = file.name.split('.').slice(0, -1).join('.');
+        const decodedContent = decodeContent(res.data.content);
+        saveContentToFile(decodedContent, fileNameWithoutExtension + ".txt");
+        
       })
       .catch((err) => {
         console.log(err);
@@ -71,6 +77,24 @@ function DashBoard() {
       alert("파일을 선택해주세요.");
     }
   };
+
+  function decodeContent(encodedContent) {
+    // Base64 디코딩
+    const decodedContent = atob(encodedContent);
+    // UTF-8 디코딩
+    const decodedText = decodeURIComponent(escape(decodedContent));
+    return decodedText;
+  }
+
+  function saveContentToFile(content, fileName) {
+    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
+  }
+  
+  
 
   // 계층으로 표현하기 위한 함수
   const convertToHierarchy = (files) => {
@@ -95,6 +119,31 @@ function DashBoard() {
     return hierarchy;
   };
 
+  const generateHierarchyKeys = (hierarchy, level = 0) => {
+    let result = [];
+  
+    // 우선적으로 파일을 표시하기 위해 객체가 아닌 경우를 먼저 처리
+    for (const key in hierarchy) {
+      if (typeof hierarchy[key] !== "object") {
+        const indentation = Array(level).fill('\u00A0\u00A0\u00A0\u00A0').join("");
+        result.push(indentation + key);
+        delete hierarchy[key]; // 처리된 항목은 삭제하여 나중에 객체를 처리할 때 중복되지 않도록 함
+      }
+    }
+  
+    // 객체인 경우를 나중에 처리하여 하위 항목들을 먼저 표시
+    for (const key in hierarchy) {
+      const indentation = Array(level).fill('\u00A0\u00A0\u00A0\u00A0').join("");
+      result.push(indentation + key);
+  
+      if (typeof hierarchy[key] === "object") {
+        result = result.concat(generateHierarchyKeys(hierarchy[key], level + 1));
+      }
+    }
+  
+    return result;
+  };
+
   return (
     <div>
       <h1>Code에 숨은 한글 찾기</h1>
@@ -116,13 +165,22 @@ function DashBoard() {
         </div>
         <div className="scroll-container">
           <div className="content">
-            {directory && directory.length > 0 ? (
-              directory.map((item, index) => (
-                <p key={index} className={item.endsWith('_$INSERT') ? 'red' : ''}> - {item.endsWith('_$INSERT') ? item.slice(0, -8) : item}</p>
-              ))
-            ) : (
-              null
-            )}
+            {directory  ? (
+              <ul className="tree">
+                {generateHierarchyKeys(directory).map((key, index) => {
+                  const displayKey = key.replace("_$INSERT", ""); // _$INSERT 제거
+                  const isInsert = key.endsWith("_$INSERT"); // _$INSERT 여부 확인
+                  if (index === 0) return null; // 첫 번째 요소는 표시하지 않음
+                  return (
+                    <li key={index} className={`tree-node ${isInsert ? 'insert' : ''}`}>
+                      <span className="node">{displayKey}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+             ) : ( 
+               null 
+             )} 
           </div>
         </div>
       </div>

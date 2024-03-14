@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "./apiIntercepter";
+import { useNavigate } from 'react-router-dom'; // useHistory 대신 useNavigate 사용
 
 const AdminUsers = () => {
   const [userInfoList, setUserInfoList] = useState([]);
-  const [errorMsg, setErrorMsg] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -16,15 +17,10 @@ const AdminUsers = () => {
         setUserInfoList(response.data.message);
       })
       .catch((error) => {
-          if(error.response.status === 401){
-            setErrorMsg("읽을 권한이 없습니다.");
-          }else{
-            setErrorMsg(
-              "정보를 불러오는데 실패했습니다. 다시 시도해주시기 바랍니다."
-            );
-          }
+            console.log(error);
+            navigate("/dashboard");
       });
-  }, []);
+  }, [navigate]);
 
   return (
     <div>
@@ -41,7 +37,7 @@ const AdminUsers = () => {
           ))}
         </div>
       ) : (
-        <p>{errorMsg}</p>
+        null
       )}
     </div>
   );

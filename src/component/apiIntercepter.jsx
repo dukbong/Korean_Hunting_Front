@@ -12,7 +12,6 @@ axiosInstance.interceptors.response.use(
       localStorage.setItem("token", newToken);
     }
     return response;
-  }
+  },
 );
-
 export default axiosInstance;

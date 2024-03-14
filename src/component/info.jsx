@@ -20,10 +20,15 @@ const UserInfo = () => {
           setUserInfo(response.data);
         })
         .catch((error) => {
-          console.log(error);
-          setErrorMsg(
-            "정보를 불러오는데 실패했습니다. 다시 시도해주시기 바랍니다."
-          );
+          if(error.response.status === 401){
+            localStorage.removeItem("token");
+            localStorage.removeItem("userId");
+            navigate("/login");
+          }else{
+            setErrorMsg(
+              "정보를 불러오는데 실패했습니다. 다시 시도해주시기 바랍니다."
+            );
+          }
         });
     }
   }, [navigate]);

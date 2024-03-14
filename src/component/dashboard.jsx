@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import './css/dashboard.css';
 import adImage from './image/test.jpg';
 import axiosInstance from "./apiIntercepter";
+import Modal from "./modal"; // Modal 컴포넌트 임포트
 
 function DashBoard() {
 
@@ -18,6 +19,8 @@ function DashBoard() {
   const [file, setFile] = useState(null);
   const [modifyDate, setModifyDate] = useState("");
   const [directory, setDirectory] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // 파일 선택 시 실행되는 함수
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -28,6 +31,15 @@ function DashBoard() {
       setDirectory("");
       setModifyDate("");
     }
+  };
+
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   // 파일의 마지막 수정 시간
@@ -64,11 +76,11 @@ function DashBoard() {
         const hierarchy = convertToHierarchy(res.data.directory);
         setDirectory(hierarchy);
 
-        console.log(res);
+        console.log(hierarchy);
         const fileNameWithoutExtension = file.name.split('.').slice(0, -1).join('.');
         const decodedContent = decodeContent(res.data.content);
         saveContentToFile(decodedContent, fileNameWithoutExtension + ".txt");
-        
+        openModal();
       })
       .catch((err) => {
         console.log(err);
@@ -119,30 +131,36 @@ function DashBoard() {
     return hierarchy;
   };
 
-  const generateHierarchyKeys = (hierarchy, level = 0) => {
+  const generateHierarchyKeys = (hierarchy, level = 0, parentName = "") => {
     let result = [];
   
-    // 우선적으로 파일을 표시하기 위해 객체가 아닌 경우를 먼저 처리
+    // 객체가 아닌 경우를 먼저 처리
     for (const key in hierarchy) {
       if (typeof hierarchy[key] !== "object") {
-        const indentation = Array(level).fill('\u00A0\u00A0\u00A0\u00A0').join("");
-        result.push(indentation + key);
+        const isLast = Object.keys(hierarchy).indexOf(key) === Object.keys(hierarchy).length - 1;
+        const indentation = '\u00A0\u00A0\u00A0\u00A0'.repeat(level) + (parentName ? "F : " + key : key);
+        result.push(indentation + (isLast ? "" : "\n"));
         delete hierarchy[key]; // 처리된 항목은 삭제하여 나중에 객체를 처리할 때 중복되지 않도록 함
       }
     }
   
-    // 객체인 경우를 나중에 처리하여 하위 항목들을 먼저 표시
+    // 객체인 경우를 나중에 처리하여 하위 항목들을 표시
     for (const key in hierarchy) {
-      const indentation = Array(level).fill('\u00A0\u00A0\u00A0\u00A0').join("");
-      result.push(indentation + key);
+      const isObject = typeof hierarchy[key] === "object";
+      const objectName = parentName ? parentName + " ─ " + key : key;
+      const indentation = '\u00A0\u00A0\u00A0\u00A0'.repeat(level) + objectName;
+      
+      result.push(indentation + "\n");
   
-      if (typeof hierarchy[key] === "object") {
-        result = result.concat(generateHierarchyKeys(hierarchy[key], level + 1));
+      if (isObject) {
+        const childLines = generateHierarchyKeys(hierarchy[key], level + 1, objectName);
+        result = result.concat(childLines);
       }
     }
   
     return result;
   };
+  
 
   return (
     <div>
@@ -163,29 +181,33 @@ function DashBoard() {
             </div>
           )}
         </div>
-        <div className="scroll-container">
-          <div className="content">
-            {directory  ? (
-              <ul className="tree">
-                {generateHierarchyKeys(directory).map((key, index) => {
-                  const displayKey = key.replace("_$INSERT", ""); // _$INSERT 제거
-                  const isInsert = key.endsWith("_$INSERT"); // _$INSERT 여부 확인
-                  if (index === 0) return null; // 첫 번째 요소는 표시하지 않음
-                  return (
-                    <li key={index} className={`tree-node ${isInsert ? 'insert' : ''}`}>
-                      <span className="node">{displayKey}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-             ) : ( 
-               null 
-             )} 
-          </div>
-        </div>
-      </div>
       <div className="ads">
         <img src={adImage} alt="광고" className="ad-image" />
+      </div>
+        {/* 모달 */}
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <div className="scroll-container">
+            <div className="content">
+              {directory  ? (
+                <ul className="tree">
+                  {generateHierarchyKeys(directory).map((key, index) => {
+                    const isInsert = key.trim().endsWith("_$INSERT"); // _$INSERT 여부 확인
+                    const displayKey = key.replace("_$INSERT", ""); // _$INSERT 제거
+                    const isRoot = key.trim().indexOf(":") === -1 && key.trim().indexOf("─") === -1;
+                    if (index === 0) return null; // 첫 번째 요소는 표시하지 않음
+                    return (
+                      <li key={index} className={`tree-node ${isInsert ? 'insert' : ''} ${isRoot ? 'root' : ''}`}>
+                        <span className="node">{displayKey}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : ( 
+                null 
+              )} 
+            </div>
+          </div>
+        </Modal>
       </div>
     </div>
   );

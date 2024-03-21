@@ -138,7 +138,7 @@ function DashBoard() {
     for (const key in hierarchy) {
       if (typeof hierarchy[key] !== "object") {
         const isLast = Object.keys(hierarchy).indexOf(key) === Object.keys(hierarchy).length - 1;
-        const indentation = '\u00A0\u00A0\u00A0\u00A0'.repeat(level) + (parentName ? "F : " + key : key);
+        const indentation = '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0'.repeat(level) + (parentName ? "F : " + key : key);
         result.push(indentation + (isLast ? "" : "\n"));
         delete hierarchy[key]; // 처리된 항목은 삭제하여 나중에 객체를 처리할 때 중복되지 않도록 함
       }
@@ -148,7 +148,7 @@ function DashBoard() {
     for (const key in hierarchy) {
       const isObject = typeof hierarchy[key] === "object";
       const objectName = parentName ? parentName + " ─ " + key : key;
-      const indentation = '\u00A0\u00A0\u00A0\u00A0'.repeat(level) + objectName;
+      const indentation = '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0'.repeat(level) + objectName;
       
       result.push(indentation + "\n");
   
@@ -193,10 +193,8 @@ function DashBoard() {
                   {generateHierarchyKeys(directory).map((key, index) => {
                     const isInsert = key.trim().endsWith("_$INSERT"); // _$INSERT 여부 확인
                     const displayKey = key.replace("_$INSERT", ""); // _$INSERT 제거
-                    const isRoot = key.trim().indexOf(":") === -1 && key.trim().indexOf("─") === -1;
-                    if (index === 0) return null; // 첫 번째 요소는 표시하지 않음
                     return (
-                      <li key={index} className={`tree-node ${isInsert ? 'insert' : ''} ${isRoot ? 'root' : ''}`}>
+                      <li key={index} className={`tree-node ${isInsert ? 'insert' : ''}`}>
                         <span className="node">{displayKey}</span>
                       </li>
                     );

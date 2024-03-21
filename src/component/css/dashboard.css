@@ -142,30 +142,8 @@ h1 {
 
 .tree-node.insert .node {
   color: red;
-  background-color: #f7d2d2; /* 빨간색 배경색상 */
 }
 
-.tree-node.root {
-  font-size: 20px;
-  font-weight: bold;
-  color: blue; /* 폴더 텍스트 색상 */
-  background-color: #f0f0f0; /* 배경색 */
-  padding: 10px 20px; /* 내부 여백 */
-  border-radius: 5px; /* 모서리 둥글게 */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-  transition: all 0.3s ease; /* 부드러운 변화를 위한 transition */
-  display: block; /* 블록 요소로 표시 */
-  line-height: 1.5; /* 행간 조정 */
-}
-
-.tree-node.root:hover {
-  background-color: #e0e0e0; /* 호버 시 배경색 변경 */
-}
-
-.tree-node.root span {
-  display: inline-block; /* span 요소를 블록 요소로 변환 */
-  vertical-align: middle; /* 수직 중앙 정렬 */
-}
 .ads{
   text-align: center;
   width: 600px;

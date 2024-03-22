@@ -20,6 +20,7 @@ function DashBoard() {
   const [modifyDate, setModifyDate] = useState("");
   const [directory, setDirectory] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [extractionStrategyType, setExtractionStrategyType] = useState("");
 
   // 파일 선택 시 실행되는 함수
   const handleFileChange = (e) => {
@@ -63,6 +64,7 @@ function DashBoard() {
       console.log(file);
       const formData = new FormData();
       formData.append("file", file);
+      formData.append("extractionStrategyType", "EXTRACTION_KOREAN");
 
       const token = localStorage.getItem("token");
 
@@ -138,7 +140,7 @@ function DashBoard() {
     for (const key in hierarchy) {
       if (typeof hierarchy[key] !== "object") {
         const isLast = Object.keys(hierarchy).indexOf(key) === Object.keys(hierarchy).length - 1;
-        const indentation = '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0'.repeat(level) + (parentName ? "F : " + key : key);
+        const indentation = '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0'.repeat(level) + (parentName ? "* " + key : key);
         result.push(indentation + (isLast ? "" : "\n"));
         delete hierarchy[key]; // 처리된 항목은 삭제하여 나중에 객체를 처리할 때 중복되지 않도록 함
       }
@@ -160,6 +162,11 @@ function DashBoard() {
   
     return result;
   };
+
+    // 클릭 이벤트 핸들러
+    const handleButtonClick = (strategy) => {
+      setExtractionStrategyType(strategy);
+    };
   
 
   return (
@@ -177,6 +184,14 @@ function DashBoard() {
             <div>
               <p className="file-info">Name : {file?.name}</p>
               <p className="file-info">Modify Date : {modifyDate}</p>
+              <div>
+      {/* 클릭 이벤트가 발생할 때 handleButtonClick 함수를 호출하여 상태를 변경합니다. */}
+      <button onClick={() => handleButtonClick("EXTRACTION_KOREAN")}>한글 추출 전략</button>
+      <button onClick={() => handleButtonClick("EXTRACTION_TAG")}>태그 추출 전략</button>
+
+      {/* 상태를 출력하여 확인합니다. */}
+      <p>선택된 추출 전략: {extractionStrategyType}</p>
+    </div>
               <button className="upload-button" onClick={handleUpload}>SEARCH</button>
             </div>
           )}

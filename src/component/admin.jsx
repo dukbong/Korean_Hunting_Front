@@ -14,7 +14,13 @@ const AdminUsers = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        setUserInfoList(response.data.message);
+        if(response){
+          // 정상 접근
+          setUserInfoList(response.data.message);
+        }else {
+          // 전 페이지로 이동
+          navigate(-1);
+        }
       })
       .catch((error) => {
             console.log(error);

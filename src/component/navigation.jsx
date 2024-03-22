@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useUserStore from "./useUserStore"; // useUserStore 불러오기
-import axios from "axios";
+// import axios from "axios";
+import axiosInstance from "./apiIntercepter";
 import "./css/navigation.css";
 
 const Navigation = () => {
@@ -18,10 +19,9 @@ const Navigation = () => {
 
   const handleLogout = () => {
       const token = localStorage.getItem("token");
-      axios
+      axiosInstance
         .get("/logout", { headers: { Authorization: `Bearer ${token}` } })
         .then((res) => {
-          console.log("logout!");
           localStorage.removeItem("token");
           localStorage.removeItem("userId");
           setUserId("");

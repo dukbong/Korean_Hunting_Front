@@ -25,18 +25,16 @@ const Login = () => {
     axios
       .post("/login", { userId: username, userPwd: password })
       .then((response) => {
-        const token = response.data.accessToken;
+        const token = response.headers.authorization;
         if (token) {
-          localStorage.setItem("token", token);
+          localStorage.setItem("token", token.substring(7));
           setUserId(username);
           navigate("/dashboard");
         }
       })
       .catch((error) => {
         if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message
+          error.response && error.response.data && error.response.data.message
         ) {
           alert(error.response.data.message);
         } else {

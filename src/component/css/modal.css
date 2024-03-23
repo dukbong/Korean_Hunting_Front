@@ -30,9 +30,12 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 16px;
+    font-size: 24px; /* 큰 사이즈로 변경 */
     background-color: transparent;
     border: none;
     color: white;
     cursor: pointer;
+    padding: 10px; /* 패딩 추가 */
+    line-height: 1; /* 텍스트와 버튼의 높이를 맞춤 */
+    z-index: 1; /* 모달 내부의 콘텐츠보다 아래로 내리기 */
   }

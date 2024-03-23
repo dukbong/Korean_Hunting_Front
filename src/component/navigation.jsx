@@ -36,6 +36,11 @@ const Navigation = () => {
     navigate("/dashboard");
   };
 
+  const handleGit = () => {
+    const githubUrl = "https://github.com/dukbong/Korean_Hunting_Back";
+    window.open(githubUrl, "_blank");
+  };
+
   const handleUserIdClick = () => {
     navigate("/info");
   };
@@ -43,11 +48,12 @@ const Navigation = () => {
   if (isAuthenticated && !isLoginPage && !isJoinPage) {
     return (
       <nav className="nav-container">
-        <div className="left-content" onClick={handleMain}>
-          <span>Korean Hunting</span>
+        <div className="left-content">
+          <img id="logoimg" onClick={handleMain} src={process.env.PUBLIC_URL + '/image/applogo2.png'} alt="앱 로고" width={370} height={50} />
         </div>
         <div className="right-content">
           <ul>
+          <img id="gitimg" onClick={handleGit} src={process.env.PUBLIC_URL + '/image/github.png'} alt="깃허브 로고" width={24} height={24} />
             <li>
               <span onClick={handleUserIdClick}><button>{userId}</button></span>
               <button onClick={handleLogout}>| Logout</button>

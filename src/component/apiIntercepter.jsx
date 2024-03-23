@@ -26,7 +26,8 @@ axiosInstance.interceptors.response.use(
     if(status === 401){
       // 인증 문제
       alert(error.response.data);
-    }
+    } 
+    
   }
 );
 export default axiosInstance;

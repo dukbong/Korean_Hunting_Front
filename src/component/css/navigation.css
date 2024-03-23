@@ -5,7 +5,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: #008CBA; /* 배경색 변경 */
+  background: #0E6CA5; /* 배경색 변경 */
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -14,10 +14,13 @@
   /* z-index: 1000; */
 }
 
-.nav-container .left-content {
-  color: white;
+.nav-container .left-content * {
   margin-left: 10px;
   cursor: pointer; /* 마우스 커서 변경 */
+}
+
+#gitimg {
+  cursor: pointer;
 }
 
 .nav-container .left-content span {

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import './css/dashboard.css';
 import axiosInstance from "./apiIntercepter";
 import Modal from "./modal"; // Modal 컴포넌트 임포트
-// import DisplayAds from "./displayads";
+import DisplayAds from "./displayads";
 
 function DashBoard() {
 
@@ -157,6 +157,7 @@ function DashBoard() {
   };
 
   return (
+    <div className="dashMain">
     <div className="container">
       <div className="image-container">
         <img src={process.env.PUBLIC_URL + '/image/applogo.png'} alt="앱 로고" width={370} height={50} />
@@ -168,7 +169,7 @@ function DashBoard() {
             <label htmlFor='input-file' className="upload-label">
               <i className="fa-regular fa-cloud-arrow-down" style={{ color: '#ffffff' }}></i>File Upload
             </label>
-            <input id='input-file' type="file" onChange={handleFileChange} accept=".zip" />
+            <input id='input-file' type="file" onChange={handleFileChange} accept=".zip, .jar" />
           </div>
           {file && (
             <div>
@@ -184,9 +185,7 @@ function DashBoard() {
             </div>
           )}
         </div>
-        {/* <div className="ads">
-        <DisplayAds />
-      </div> */}
+        
         {/* 모달 */}
         <Modal isOpen={isModalOpen} onClose={closeModal}>
           <div className="scroll-container">
@@ -209,7 +208,12 @@ function DashBoard() {
             </div>
           </div>
         </Modal>
+      
       </div>
+    </div>
+            {/* <div className="ads">
+              <DisplayAds />
+            </div>  */}
     </div>
   );
 }

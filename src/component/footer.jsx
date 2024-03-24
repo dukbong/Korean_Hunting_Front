@@ -15,7 +15,7 @@ function Footer() {
   return (
     <footer>
         <div className='footer'>
-            <div className='languages'>Supported languages</div>
+            <div className='languages'>Supported</div>
             <div className="marquee">
                 <div>
                     <span>JSP</span>

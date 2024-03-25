@@ -33,27 +33,75 @@ const UserInfo = () => {
     }
   }, [navigate]);
 
+  const createApiToken = () => {
+
+    const formData = new FormData();
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem("token");
+    formData.append("userId", userId);
+    axiosInstance
+      .get("/crateApi", { headers: { Authorization: `Bearer ${token}` }, params: { userId: userId } })
+      .then((res) => {
+        console.log(res);
+      });
+  }
+
+
+  const copyToken = () => {
+    navigator.clipboard.writeText(userInfo.apiToken)
+      .then(() => {
+        alert("토큰이 복사되었습니다!");
+      })
+      .catch((error) => {
+        console.error("토큰 복사 실패:", error);
+      });
+  };
   return (
-    <div className="jenkins-user-info-container">
+    <div className="userInfo-main">
       {userInfo ? (
         <div>
-          <h2 className="jenkins-user-info-heading">회원 정보</h2>
-          <table className="jenkins-user-info-table">
-            <tbody>
+          <div className="user-info">
+              <div className="user-info-id">
+                <h3>WelCome! {userInfo.userId}</h3>
+              </div>
+              <div className="user-info-email">
+                <h3>Email</h3>
+                <h3>{userInfo.email}</h3>
+              </div>
+              <div className="user-info-company">
+                <h3>Company</h3>
+                <h3>{userInfo.company}</h3>
+              </div>
+          </div>
+          <div>
+            <h3>개인 API인증키</h3>
+            <p>인증키의 유효기간은 7일 입니다.</p>
+            <table>
               <tr>
-                <td>Username:</td>
-                <td>{userInfo.userId}</td>
+                <td>
+                  구분
+                </td>
+                <td>
+                  발급일자
+                </td>
+                <td>
+                  인증키
+                </td>
               </tr>
               <tr>
-                <td>Email:</td>
-                <td>{userInfo.email}</td>
+                <td>일반</td>
+                <td>{userInfo.issuance}</td>
+                <td>
+                  <span onClick={copyToken}>
+                      {userInfo.apiToken.length > 20
+                        ? userInfo.apiToken.substring(0, 20) + "..."
+                        : userInfo.apiToken}
+                  </span>
+                  <button onclick={createApiToken}>Issuance</button>
+                </td>
               </tr>
-              <tr>
-                <td>Company:</td>
-                <td>{userInfo.company}</td>
-              </tr>
-            </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       ) : (
         <p>{errorMsg}</p>

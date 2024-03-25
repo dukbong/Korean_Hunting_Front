@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import './css/dashboard.css';
 import axiosInstance from "./apiIntercepter";
 import Modal from "./modal"; // Modal 컴포넌트 임포트
-import DisplayAds from "./displayads";
+// import DisplayAds from "./displayads";
 
 function DashBoard() {
 

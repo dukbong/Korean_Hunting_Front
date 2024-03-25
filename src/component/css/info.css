@@ -1,32 +1,60 @@
-.jenkins-user-info-container {
-    width: 90%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .jenkins-user-info-heading {
-    margin-bottom: 20px;
-  }
-  
-  .jenkins-user-info-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .jenkins-user-info-table td {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .jenkins-user-info-table td:first-child {
-    font-weight: bold;
-  }
-  
-  .jenkins-user-info-table td:last-child {
-    text-align: right;
-  }
-  
+.userInfo-main {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info h3 {
+  margin: 5px 0;
+}
+
+.user-info-email,
+.user-info-company {
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+td span {
+  cursor: pointer;
+  max-width: 200px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 5px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

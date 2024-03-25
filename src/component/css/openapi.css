@@ -1,0 +1,50 @@
+.builder-main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.builder {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+.gradle, .maven {
+    margin: 0 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+pre {
+    font-weight: bold;
+    overflow-x: auto;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+.example {
+    font-weight: bold;
+    font-size: 15px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+

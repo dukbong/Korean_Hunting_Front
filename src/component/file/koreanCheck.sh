@@ -1,8 +1,5 @@
 #!/bin/bash
-
 file_path="./token.txt"
-
-# 파일 읽기 및 특정 문자열 추출
 if [ -f "$file_path" ]; then
     token=$(grep -o 'token=[^ ]*' "$file_path" | cut -d'=' -f2)
     if [ -z "$token" ]; then
@@ -19,11 +16,9 @@ else
     sleep 5
     exit 0
 fi
-
-
 echo -e "\033[1;33mChecking whether Korean exists in this project ...\033[0m"
 function build_with_maven {
-    mvn clean install
+    ./mvnw clean install
 }
 function build_with_gradle {
     ./gradlew clean build
@@ -68,8 +63,11 @@ echo "--------------------------------------------------"
 echo -e "\033[1;33m> Korean Check Result\033[0m"
 echo "--------------------------------------------------"
 count=$(echo "$response" | grep -o '"count":[^,}]*' | awk -F: '{print $2}' | tr -d '"')
-
-if [ "$count" -eq 0 ]; then
+if [ -z "$count" ]; then
+    echo -e "\e[91mFailed to retrieve count from response!\e[0m"
+    echo -e "\e[91mPlease check if the token is valid and refer to the manual.\e[0m"
+    exit 1
+elif [ "$count" -eq 0 ]; then
     echo -e "\e[1;92mThe test results did not include Korean!!\e[0m"
     build_project
 else
@@ -82,14 +80,11 @@ else
         echo -e "\e[91m---> \e[0m$item"
     done
 
-    echo "--------------------------------------------------"
-    echo -e "\033[1;33mDo you want to continue building? (Y/N)\033[0m"
+    echo -e "--------------------------------------------------\n\033[1;33mDo you want to continue building? (Y/N)\033[0m\n--------------------------------------------------\n"
     read -r input
-    echo "--------------------------------------------------"
     echo
     if [[ "$input" == "N" || "$input" == "n" ]]; then
         exit 0 
     fi
     build_project
 fi
-

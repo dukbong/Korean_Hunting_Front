@@ -1,24 +1,46 @@
 .userInfo-main {
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .user-info {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-info > div {
+  flex: 1;
+}
+
+.user-info-id {
+  flex: 3; /* user-info-id 클래스를 가진 div가 더 많은 공간을 차지하도록 설정 */
 }
 
 .user-info h3 {
   margin: 5px 0;
 }
 
-.user-info-email,
-.user-info-company {
-  margin-top: 20px;
+.table-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.table-container h3 {
+  margin-bottom: 10px;
+}
+
+.table-container p {
+  margin-bottom: 20px;
 }
 
 table {
@@ -28,12 +50,13 @@ table {
 
 th, td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 12px;
 }
 
 th {
   background-color: #f2f2f2;
-  text-align: left;
+  text-align: center;
+  font-weight: bold;
 }
 
 td span {
@@ -44,6 +67,7 @@ td span {
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-right: 5px;
+  vertical-align: middle; /* 추가 */
 }
 
 button {
@@ -53,8 +77,19 @@ button {
   padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #999;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  background-color: #999;
 }

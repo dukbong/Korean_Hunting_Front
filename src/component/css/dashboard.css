@@ -7,53 +7,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 
-.content {
-  width: 102%;
+.modal-content {
+  width: 100%;
   max-height: 500px;
   /* border: 1px solid #ccc; */
   overflow: auto; 
   position: relative;
 }
-
-.content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.content::-webkit-scrollbar-track {
-  background-color: #f5f5f5;
-  border-radius: 10px;
-}
-
-.content::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 10px;
-  border: 2px solid #f5f5f5;
-}
-
-.content::-webkit-scrollbar-thumb:hover {
-  background-color: #999;
-}
-
-.scrollbar-thumb-y {
-  position: absolute;
-  width: 8px;
-  right: 2px;
-  top: 2px;
-  bottom: 2px;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
-  transition: opacity 0.3s;
-  opacity: 0;
-}
-
-.content:hover .scrollbar-thumb-y {
-  opacity: 1;
-}
-
-.scrollbar-thumb-y:hover {
-  background-color: rgba(0, 0, 0, 0.5);
+/* 스크롤바를 숨김 */
+.modal-content::-webkit-scrollbar {
+  display: none;
 }
 
 .file-info {

@@ -45,6 +45,10 @@ const Navigation = () => {
     navigate("/info");
   };
 
+  const handleApiIO = () => {
+    navigate("/manual/api");
+  }
+
   if (isAuthenticated && !isLoginPage && !isJoinPage) {
     return (
       <nav className="nav-container">
@@ -53,9 +57,12 @@ const Navigation = () => {
         </div>
         <div className="right-content">
           <ul>
-          <img id="gitimg" onClick={handleGit} src={process.env.PUBLIC_URL + '/image/github.png'} alt="깃허브 로고" width={24} height={24} />
             <li>
-              <span onClick={handleUserIdClick}><button>{userId}</button></span>
+              <img id="gitimg" onClick={handleGit} src={process.env.PUBLIC_URL + '/image/github.png'} alt="깃허브 로고" width={24} height={24} />
+            </li>
+            <li>
+              <button onClick={handleApiIO}>API.IO</button>
+              <button onClick={handleUserIdClick}>{userId}</button>
               <button onClick={handleLogout}>| Logout</button>
             </li>
           </ul>

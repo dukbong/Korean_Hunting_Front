@@ -186,10 +186,11 @@ function DashBoard() {
           )}
         </div>
         
+        
         {/* 모달 */}
         <Modal isOpen={isModalOpen} onClose={closeModal}>
           <div className="scroll-container">
-            <div className="content">
+            <div className="modal-content">
               {directory ? (
                 <ul className="tree">
                   {generateHierarchyKeys(directory).map((key, index) => {
@@ -210,6 +211,7 @@ function DashBoard() {
         </Modal>
       
       </div>
+      
     </div>
             {/* <div className="ads">
               <DisplayAds />

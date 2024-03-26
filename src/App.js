@@ -23,7 +23,7 @@ function App() {
           <Route path="/join" element={<SignUp />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/info" element={<Info />} />
-          <Route path="/use/api" element={<OpenApi />} />
+          <Route path="/manual/api" element={<OpenApi />} />
           <Route path="/admin/get/users" element={<AdminUsers />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>

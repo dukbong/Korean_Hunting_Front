@@ -48,6 +48,7 @@ const Login = () => {
   };
 
   return (
+    <div className="login-main">
     <div className="login-container">
       <h2 className="login-heading">Login</h2>
       <form>
@@ -74,6 +75,7 @@ const Login = () => {
           회원가입
         </button>
       </form>
+    </div>
     </div>
   );
 };

@@ -1,11 +1,9 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    margin: 0;
-  }
-  
+.login-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
   .login-container {
     width: 400px; /* 로그인 창 너비 늘리기 */
     margin: 0 auto; /* 가운데 정렬 */
@@ -14,6 +12,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     text-align: center;
+    justify-content: center;
   }
   
   .login-heading {

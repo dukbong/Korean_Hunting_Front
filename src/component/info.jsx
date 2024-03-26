@@ -17,10 +17,11 @@ const UserInfo = () => {
       axiosInstance
         .get("/info", { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
+          console.log(response.data);
           setUserInfo(response.data);
         })
         .catch((error) => {
-          if(error.response.status === 401){
+          if(error.response?.status === 401){
             localStorage.removeItem("token");
             localStorage.removeItem("userId");
             navigate("/login");
@@ -43,6 +44,13 @@ const UserInfo = () => {
       .get("/crateApi", { headers: { Authorization: `Bearer ${token}` }, params: { userId: userId } })
       .then((res) => {
         console.log(res);
+        setUserInfo(prevUserInfo => ({
+          ...prevUserInfo,
+          apiToken: res.data.apiToken,  // 반환된 데이터에서 apiToken 값을 가져와 업데이트
+          issuanceTime: res.data.issuanceTime,
+          tokenExpiresIn: res.data.tokenExpiresIn
+        }));
+        console.log(userInfo);
       });
   }
 
@@ -56,50 +64,61 @@ const UserInfo = () => {
         console.error("토큰 복사 실패:", error);
       });
   };
+
+  const isButtonEnabled = userInfo && 
+  (!userInfo.tokenExpiresIn || new Date(userInfo.tokenExpiresIn) <= new Date());
+
   return (
     <div className="userInfo-main">
       {userInfo ? (
         <div>
           <div className="user-info">
               <div className="user-info-id">
-                <h3>WelCome! {userInfo.userId}</h3>
+                <h3>WelCome!</h3>
               </div>
               <div className="user-info-email">
                 <h3>Email</h3>
-                <h3>{userInfo.email}</h3>
+                <h3>{userInfo?.email}</h3>
               </div>
               <div className="user-info-company">
                 <h3>Company</h3>
-                <h3>{userInfo.company}</h3>
+                <h3>{userInfo?.company}</h3>
               </div>
           </div>
-          <div>
+          <div className="table-container">
             <h3>개인 API인증키</h3>
-            <p>인증키의 유효기간은 7일 입니다.</p>
             <table>
+              <thead>
               <tr>
-                <td>
+                <th>
                   구분
-                </td>
-                <td>
+                </th>
+                <th>
                   발급일자
-                </td>
-                <td>
+                </th>
+                <th>
+                  만료시간
+                </th>
+                <th>
                   인증키
-                </td>
+                </th>
               </tr>
+              </thead>
+              <tbody>
               <tr>
                 <td>일반</td>
-                <td>{userInfo.issuance}</td>
+                <td>{userInfo.issuanceTime}</td>
+                <td>{userInfo.tokenExpiresIn}</td>
                 <td>
                   <span onClick={copyToken}>
-                      {userInfo.apiToken.length > 20
-                        ? userInfo.apiToken.substring(0, 20) + "..."
+                      {userInfo.apiToken?.length > 20
+                        ? userInfo.apiToken?.substring(0, 20) + "..."
                         : userInfo.apiToken}
                   </span>
-                  <button onclick={createApiToken}>Issuance</button>
+                  <button onClick={createApiToken} disabled={!isButtonEnabled}>Issuance</button>
                 </td>
               </tr>
+              </tbody>
             </table>
           </div>
         </div>

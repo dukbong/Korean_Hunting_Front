@@ -1,3 +1,9 @@
+.join-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 .jenkins-signup-container {
   width: 400px;
   margin: 0 auto;

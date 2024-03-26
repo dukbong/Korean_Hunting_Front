@@ -43,6 +43,7 @@ const SignUp = () => {
   };
 
   return (
+    <div className='join-main'>
     <div className="jenkins-signup-container">
       <h2 className="jenkins-signup-heading">Sign Up</h2>
       <form>
@@ -85,6 +86,7 @@ const SignUp = () => {
           뒤로가기
         </button>
       </form>
+    </div>
     </div>
   );
 };

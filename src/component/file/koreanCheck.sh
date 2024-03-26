@@ -3,36 +3,36 @@ file_path="./token.txt"
 if [ -f "$file_path" ]; then
     token=$(grep -o 'token=[^ ]*' "$file_path" | cut -d'=' -f2)
     if [ -z "$token" ]; then
-        echo -e "\e[91mToken value is empty!\e[0m"
+        echo -e "\e[91mError : Token value is empty!\e[0m"
         echo -e "\e[91mPlease check the token.txt file and manual.\e[0m"
         sleep 5
-        exit 0
+        exit 1
     else
         token_value="$token"
     fi
 else
-    echo -e "\e[91mThere is no token value!\e[0m"
+    echo -e "\e[91mError : There is no token value!\e[0m"
     echo -e "\e[91mPlease check the token.txt file and manual.\e[0m"
     sleep 5
-    exit 0
+    exit 1
 fi
 echo -e "\033[1;33mChecking whether Korean exists in this project ...\033[0m"
-function build_with_maven {
-    ./mvnw clean install
-}
-function build_with_gradle {
-    ./gradlew clean build
-}
-function has_gradle_folder {
-    [ -d ".gradle" ]
-}
-function build_project {
-    if has_gradle_folder; then
-        build_with_gradle
-    else
-        build_with_maven
-    fi
-}
+# function build_with_maven {
+#     ./mvnw clean install
+# }
+# function build_with_gradle {
+#     ./gradlew clean build
+# }
+# function has_gradle_folder {
+#     [ -d ".gradle" ]
+# }
+# function build_project {
+#     if has_gradle_folder; then
+#         build_with_gradle
+#     else
+#         build_with_maven
+#     fi
+# }
 current_date=$(date +%Y%m%d) 
 current_dir=$(pwd)
 project_name=$(basename "$current_dir")
@@ -69,7 +69,6 @@ if [ -z "$count" ]; then
     exit 1
 elif [ "$count" -eq 0 ]; then
     echo -e "\e[1;92mThe test results did not include Korean!!\e[0m"
-    build_project
 else
     echo -e "\e[91mWARNING!\e[0m"
     echo -e "\e[91mKOREAN COUNT : \e[0m$count"
@@ -84,7 +83,7 @@ else
     read -r input
     echo
     if [[ "$input" == "N" || "$input" == "n" ]]; then
-        exit 0 
+        echo -e "\e[91mAborting a build task due to a user request.\e[0m"
+        exit 1 
     fi
-    build_project
 fi

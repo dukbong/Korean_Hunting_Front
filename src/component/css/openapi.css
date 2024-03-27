@@ -50,3 +50,17 @@ pre {
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
 
+.download-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0E6CA5;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .download-button:hover {
+    background-color: #0056b3;
+  }

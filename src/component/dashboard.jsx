@@ -213,9 +213,6 @@ function DashBoard() {
       </div>
       
     </div>
-            {/* <div className="ads">
-              <DisplayAds />
-            </div>  */}
     </div>
   );
 }

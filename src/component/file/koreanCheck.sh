@@ -17,22 +17,6 @@ else
     exit 1
 fi
 echo -e "\033[1;33mChecking whether Korean exists in this project ...\033[0m"
-# function build_with_maven {
-#     ./mvnw clean install
-# }
-# function build_with_gradle {
-#     ./gradlew clean build
-# }
-# function has_gradle_folder {
-#     [ -d ".gradle" ]
-# }
-# function build_project {
-#     if has_gradle_folder; then
-#         build_with_gradle
-#     else
-#         build_with_maven
-#     fi
-# }
 current_date=$(date +%Y%m%d) 
 current_dir=$(pwd)
 project_name=$(basename "$current_dir")
@@ -63,12 +47,20 @@ echo "--------------------------------------------------"
 echo -e "\033[1;33m> Korean Check Result\033[0m"
 echo "--------------------------------------------------"
 count=$(echo "$response" | grep -o '"count":[^,}]*' | awk -F: '{print $2}' | tr -d '"')
+errormsg=$(echo "$response" | jq -r '.errors[0]' | awk -F "'" '{print $2}')
+# Token Error...
 if [ -z "$count" ]; then
-    echo -e "\e[91mFailed to retrieve count from response!\e[0m"
-    echo -e "\e[91mPlease check if the token is valid and refer to the manual.\e[0m"
-    exit 1
+    if [ -n "$errormsg" ]; then
+        echo -e "\e[91mWARNING MESSAGE : $errormsg\e[0m"
+        exit 1
+    else
+        echo -e "\e[91mWARNING MESSAGE : Please contact the website administrator.\e[0m"
+        exit 1
+    fi
+# Not include Korean
 elif [ "$count" -eq 0 ]; then
     echo -e "\e[1;92mThe test results did not include Korean!!\e[0m"
+# Include Korean
 else
     echo -e "\e[91mWARNING!\e[0m"
     echo -e "\e[91mKOREAN COUNT : \e[0m$count"

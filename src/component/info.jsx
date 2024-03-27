@@ -41,7 +41,7 @@ const UserInfo = () => {
     const token = localStorage.getItem("token");
     formData.append("userId", userId);
     axiosInstance
-      .get("/crateApi", { headers: { Authorization: `Bearer ${token}` }, params: { userId: userId } })
+      .get("/createApi", { headers: { Authorization: `Bearer ${token}` }, params: { userId: userId } })
       .then((res) => {
         console.log(res);
         setUserInfo(prevUserInfo => ({
@@ -115,7 +115,7 @@ const UserInfo = () => {
                         ? userInfo.apiToken?.substring(0, 20) + "..."
                         : userInfo.apiToken}
                   </span>
-                  <button onClick={createApiToken} disabled={!isButtonEnabled}>Issuance</button>
+                  <button className="info-button" onClick={createApiToken} disabled={!isButtonEnabled}>Issuance</button>
                 </td>
               </tr>
               </tbody>

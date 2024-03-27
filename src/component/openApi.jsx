@@ -18,7 +18,7 @@ const OpenApi = () => {
             <div className='builder'>
                 <h1>Korean Check Builder</h1>
                 <p>You can select build after checking whether Hangul exists inside the project.</p>
-                <p>After downloading the <a href="" onClick={handleDownload}>shell script package</a>, place it in the root folder of the project!</p>
+                <p>After downloading the <button className='download-button' onClick={handleDownload}>shell script package</button>, place it in the root folder of the project!</p>
                 <p>The functionality in question is chained to Gradle <strong>build</strong> and Maven <strong>install</strong>.</p>
             </div>
             <div className='content'>
@@ -36,9 +36,6 @@ const OpenApi = () => {
                             &emsp;
                         </code>
                     </pre>
-
-                    <h1>Example</h1>
-                    <p className='example'>./gradlew build</p>
                 </div>
 
                 <div className='maven'>
@@ -66,9 +63,6 @@ const OpenApi = () => {
                         &lt;/plugin&gt;
                         </code>
                     </pre>
-
-                    <h1>Example</h1>
-                    <p className='example'>./mvnw install</p>
                 </div>
             </div>
         </div>

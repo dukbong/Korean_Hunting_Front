@@ -70,7 +70,7 @@ td span {
   vertical-align: middle; /* 추가 */
 }
 
-button {
+.info-button {
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -80,16 +80,16 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.info-button:hover {
   background-color: #0056b3;
 }
 
-button:disabled {
+.info-button:disabled {
   background-color: #999;
   color: #ccc;
   cursor: not-allowed;
 }
 
-button:disabled:hover {
+.info-button:disabled:hover {
   background-color: #999;
 }

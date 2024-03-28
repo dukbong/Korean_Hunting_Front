@@ -1,6 +1,7 @@
 import React from 'react';
 import './css/openapi.css'
 import axiosInstance from "./apiIntercepter";
+import { saveAs } from 'file-saver';
 
 const OpenApi = () => {
 
@@ -10,31 +11,25 @@ const OpenApi = () => {
         axiosInstance.get("/getfile", {
             headers:{
                 Authorization : `Bearer ${token}`
-            }
+            },
         })
         .then((res) => {
             console.log(res);
-            // const decodedContent = decodeContent(res.data.message);
-            // saveContentToFile(decodedContent, "source_code_io.zip");
+            const binaryString = atob(res.data.message);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; ++i) {
+            bytes[i] = binaryString.charCodeAt(i);
+            }
+            const blob = new Blob([bytes], { type: 'application/octet-stream' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "source_code_io.zip";
+            link.click();
         });
     }
 
-    function decodeContent(encodedContent) {
-        // Base64 디코딩
-        const decodedContent = atob(encodedContent);
-        // UTF-8 디코딩
-        const decodedText = decodeURIComponent(escape(decodedContent));
-        return decodedText;
-    }
 
-    function saveContentToFile(content, fileName) {
-        const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = fileName;
-        link.click();
-    }
-    
     return (
         <div className='builder-main'>
             <div className='builder'>

@@ -1,16 +1,38 @@
 import React from 'react';
 import './css/openapi.css'
+import axiosInstance from "./apiIntercepter";
 
 const OpenApi = () => {
 
     const handleDownload = () => {
-        const filePath = "./file/koreanCheck.sh";
-        const link = document.createElement('a');
-        link.href = filePath;
-        link.download = 'test.sh';
-        document.body.appendChild(link);
+        const token = localStorage.getItem("token");
+
+        axiosInstance.get("/getfile", {
+            headers:{
+                Authorization : `Bearer ${token}`
+            }
+        })
+        .then((res) => {
+            console.log(res);
+            // const decodedContent = decodeContent(res.data.message);
+            // saveContentToFile(decodedContent, "source_code_io.zip");
+        });
+    }
+
+    function decodeContent(encodedContent) {
+        // Base64 디코딩
+        const decodedContent = atob(encodedContent);
+        // UTF-8 디코딩
+        const decodedText = decodeURIComponent(escape(decodedContent));
+        return decodedText;
+    }
+
+    function saveContentToFile(content, fileName) {
+        const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
         link.click();
-        document.body.removeChild(link);
     }
     
     return (

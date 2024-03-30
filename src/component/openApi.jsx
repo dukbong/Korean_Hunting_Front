@@ -1,7 +1,6 @@
 import React from 'react';
 import './css/openapi.css'
 import axiosInstance from "./apiIntercepter";
-import { saveAs } from 'file-saver';
 
 const OpenApi = () => {
 
@@ -45,8 +44,8 @@ const OpenApi = () => {
                     <pre>
                         <code>
                             {"\n"}
-                            task koreanCheck(type: Exec) &#123;{"\n"}
-                            &emsp;&emsp;&emsp;&emsp;commandLine 'sh', './koreanCheck.sh'{"\n"}
+                            task koreanCheck(type: Exec)&#123;{"\n"}
+                            &emsp;&emsp;&emsp;&emsp;commandLine 'sh', './sourcode_io/koreanCheck.sh'{"\n"}
                             &emsp;&emsp;&emsp;&emsp;standardInput = System.in{"\n"}
                             &#125;{"\n"}{"\n"}
                             tasks.build.dependsOn customTask{"\n"}
@@ -71,6 +70,7 @@ const OpenApi = () => {
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;goals&gt;&emsp;&lt;goal&gt;exec&lt;/goal&gt;&emsp;&lt;/goals&gt;{"\n"}
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;configuration&gt;{"\n"}
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;executable&gt;sh&lt;/executable&gt;{"\n"}
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;workingDirectory&gt;$&#123;project.basedir&#125;/sourcode_io&lt;/workingDirectory&gt;{"\n"}
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;arguments&gt;{"\n"}
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;argument&gt;koreanCheck.sh&lt;/argument&gt;{"\n"}
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;/arguments&gt;{"\n"}

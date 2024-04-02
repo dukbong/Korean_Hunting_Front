@@ -33,25 +33,29 @@
   
   .login-input input,
   .login-button,
-  .signup-button {
+  .signup-button,
+  .github-button {
     width: calc(100% - 20px);
     padding: 8px;
     font-size: 16px;
   }
   
   .login-button,
-  .signup-button {
+  .signup-button,
+  .github-button {
     margin-top: 10px;
-    background-color: #4caf50;
+    /* background-color: #4caf50; */
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-  
-  .login-button:hover,
-  .signup-button:hover {
+  .login-button{
+     margin-top: 5px;
+     background-color: #4caf50;
+  }
+  .login-button:hover {
     background-color: #45a049;
   }
   
@@ -64,3 +68,18 @@
     background-color: #005f6b;
   }
   
+  /* GitHub 로그인 버튼 */
+.github-button {
+  background-color: #333;
+  color: white;
+}
+
+.github-button:hover {
+  background-color: #555;
+}
+
+.github-button img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}

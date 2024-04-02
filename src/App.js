@@ -12,6 +12,7 @@ import Navigation from "./component/navigation";
 import AdminUsers from "./component/admin";
 import Footer from "./component/footer";
 import OpenApi from "./component/openApi";
+import Test from "./component/test";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/info" element={<Info />} />
           <Route path="/manual/api" element={<OpenApi />} />
           <Route path="/admin/get/users" element={<AdminUsers />} />
+          <Route path="/test" element={<Test />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
         <Footer/>

@@ -7,6 +7,7 @@ import "./css/login.css";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [code, setCode] = useState("");
   const { setUserId } = useUserStore();
   const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
 
@@ -16,6 +17,36 @@ const Login = () => {
       navigate("/dashboard");
     }
   }, [navigate]);
+
+  useEffect(() => {
+    // URL에서 코드 추출
+    const urlParams = new URLSearchParams(window.location.search);
+    const codeParam = urlParams.get("code");
+    if (codeParam) {
+      // 추출된 코드를 상태에 설정
+      setCode(codeParam);
+    }
+  }, []);
+
+  useEffect(() => {
+    // 코드가 설정되면 서버에 전송
+    alert("code = " + code);
+    if (code) {
+      axios.post("/githubcallback", { code })
+        .then((res) => {
+          alert(res.headers.authorization);
+          const token = res.headers.authorization;
+        if (token) {
+          localStorage.setItem("token", token.substring(7));
+          setUserId(res.data.userId);
+          navigate("/dashboard");
+        }
+        })
+        .catch((error) => {
+          console.error("Error sending code to server:", error);
+        });
+    }
+  }, [code, navigate]);
 
   const handleLogin = () => {
     if(!(username && password)){
@@ -47,6 +78,18 @@ const Login = () => {
     navigate("/join");
   };
 
+  const githubhandleLogin = () => {
+    axios.get("/githublogin")
+    .then((res) => {
+      console.log(res);
+      let data = res.data;
+      window.location.href = data.githubAuthUrl;
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
   return (
     <div className="login-main">
     <div className="login-container">
@@ -68,6 +111,10 @@ const Login = () => {
             placeholder="PASSWORD"
           />
         </div>
+        <button type="button" onClick={githubhandleLogin} className="github-button">
+          <img src="/image/github-mark-white.png" alt="Github Login" />
+          GitHub로 로그인
+        </button>
         <button type="button" onClick={handleLogin} className="login-button">
           로그인
         </button>

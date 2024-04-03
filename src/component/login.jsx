@@ -30,11 +30,12 @@ const Login = () => {
 
   useEffect(() => {
     // 코드가 설정되면 서버에 전송
-    alert("code = " + code);
+    // alert("code = " + code);
     if (code) {
       axios.post("/githubcallback", { code })
         .then((res) => {
-          alert(res.headers.authorization);
+          // alert(res.headers.authorization);
+          console.log(res);
           const token = res.headers.authorization;
         if (token) {
           localStorage.setItem("token", token.substring(7));
@@ -93,7 +94,7 @@ const Login = () => {
   return (
     <div className="login-main">
     <div className="login-container">
-      <h2 className="login-heading">Login</h2>
+      <h2 className="login-heading">LOGIN</h2>
       <form>
         <div className="login-input">
           <input
@@ -112,8 +113,10 @@ const Login = () => {
           />
         </div>
         <button type="button" onClick={githubhandleLogin} className="github-button">
-          <img src="/image/github-mark-white.png" alt="Github Login" />
-          GitHub로 로그인
+          <div className="github-div">
+            <img src="/image/github-mark-white.png" alt="Github Login" />
+            GitHub 로그인
+          </div>
         </button>
         <button type="button" onClick={handleLogin} className="login-button">
           로그인

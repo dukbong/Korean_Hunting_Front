@@ -1,30 +1,79 @@
 .userInfo-main {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  height: 88vh;
+  padding-top: 75px;
 }
 
-.user-info {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.left-container {
+  width: 30vh;
+  background-color: #f0f0f0;
+  text-align: center;
 }
 
-.user-info > div {
+.tab {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.tab.active {
+  background-color: #dcdcdc;
+}
+
+.right-container {
   flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: auto;
 }
 
-.user-info-id {
-  flex: 3; /* user-info-id 클래스를 가진 div가 더 많은 공간을 차지하도록 설정 */
+h3 {
+  margin-bottom: 10px;
 }
 
-.user-info h3 {
-  margin: 5px 0;
+p {
+  margin-bottom: 5px;
+}
+
+.api-info {
+  margin-bottom: 20px;
+}
+
+.api-info-row {
+  display: flex;
+  align-items: center;
+}
+
+.api-info-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.api-info-value {
+  margin-right: 20px;
+}
+
+.info-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.info-button:hover {
+  background-color: #45a049;
+}
+
+.info-button:disabled {
+  background-color: #cccccc;
+  color: #777777;
+  cursor: not-allowed;
+}
+
+.info-button:disabled:hover {
+  background-color: #cccccc;
 }
 
 .table-container {
@@ -35,14 +84,6 @@
   margin-bottom: 20px;
 }
 
-.table-container h3 {
-  margin-bottom: 10px;
-}
-
-.table-container p {
-  margin-bottom: 20px;
-}
-
 table {
   width: 100%;
   border-collapse: collapse;
@@ -50,46 +91,64 @@ table {
 
 th, td {
   border: 1px solid #ddd;
-  padding: 12px;
+  padding: 10px;
+  text-align: center;
 }
 
 th {
   background-color: #f2f2f2;
-  text-align: center;
   font-weight: bold;
 }
 
-td span {
-  cursor: pointer;
-  max-width: 200px;
-  display: inline-block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin-right: 5px;
-  vertical-align: middle; /* 추가 */
+.success-status {
+  background-color: #eaf7ea;
 }
 
-.info-button {
-  background-color: #007bff;
-  color: #fff;
+.failure-status {
+  background-color: #fce8e6;
+}
+
+h3 {
+  margin-bottom: 15px; /* 아래 여백을 더 늘립니다. */
+  font-size: 1.5rem; /* 폰트 크기를 조금 키웁니다. */
+  color: #333; /* 폰트 색상을 더 어두운 색으로 변경합니다. */
+  text-transform: uppercase; /* 텍스트를 대문자로 변환합니다. */
+  letter-spacing: 1px; /* 글자 간격을 늘립니다. */
+}
+
+/* info.css */
+
+/* info.css */
+
+/* info.css */
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+}
+
+.pagination-button {
+  padding: 8px 16px;
+  margin: 0 4px;
+  background-color: transparent;
+  color: #007bff;
   border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.info-button:hover {
-  background-color: #0056b3;
+.pagination-button:hover {
+  background-color: #e9ecef;
 }
 
-.info-button:disabled {
-  background-color: #999;
-  color: #ccc;
+.pagination-button:disabled {
+  background-color: transparent;
+  color: #6c757d;
   cursor: not-allowed;
 }
 
-.info-button:disabled:hover {
-  background-color: #999;
+.pagination-button.active {
+  background-color: #007bff;
+  color: #fff;
 }
+

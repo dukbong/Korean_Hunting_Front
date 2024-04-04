@@ -1,66 +1,72 @@
-.builder-main {
-    min-height: 100vh;
+/* openapi.css */
+
+.Open-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow-x: hidden; /* 가로 스크롤 방지 */
-}
-
-.builder {
-    text-align: center;
-    margin-bottom: 20px;
-    font-family: Arial, sans-serif;
-}
-
-.content {
-    display: flex;
-    justify-content: center;
-    
-}
-
-.gradle, .maven {
-    margin: 0 10px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-family: Arial, sans-serif;
-}
-
-h1, h2 {
-    text-align: center;
-    font-family: Arial, sans-serif;
-}
-
-pre {
-    font-weight: bold;
-    overflow-x: auto;
-    background-color: #f4f4f4;
-    padding: 10px;
-    border-radius: 5px;
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-}
-
-.example {
-    font-weight: bold;
-    font-size: 15px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-}
-
-.download-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #0E6CA5;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
+    height: 88vh;
+    padding-top: 75px;
   }
   
-  .download-button:hover {
-    background-color: #0056b3;
+  .Open-left {
+    width: 30vh;
+    background-color: #f0f0f0;
+    text-align: center;
+  }
+  
+  .Open-tab {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .Open-tab.active {
+    background-color: #dcdcdc;
+  }
+  
+  .Open-right {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    overflow-y: auto;
+  }
+  
+  .Open-builder h1,
+  .Open-gradle h1,
+  .Open-maven h1 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .Open-download-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .Open-download-button:hover {
+    background-color: #45a049;
+  }
+  
+  .Open-download-button:disabled {
+    background-color: #cccccc;
+    color: #777777;
+    cursor: not-allowed;
+  }
+  
+  .Open-download-button:disabled:hover {
+    background-color: #cccccc;
+  }
+  
+  .Open-gradle-code,
+  .Open-maven-code {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
   }

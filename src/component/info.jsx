@@ -7,10 +7,10 @@ const UserInfo = () => {
   const [userInfo, setUserInfo] = useState(null); // 유저 정보 상태
   const [buildHistory, setBuildHistory] = useState(null); // 프로젝트 빌드 히스토리 상태
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호 상태
-  const [totalPages, setTotalPages] = useState(1); // 총 페이지 수 상태
+  const [totalPages, setTotalPages] = useState(0); // 총 페이지 수 상태
   const [selectedTab, setSelectedTab] = useState("apiToken"); // 선택된 탭 상태
   const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
-
+  const MAX_PAGE_BUTTONS = 10; // 페이지바에 표시되는 최대 버튼 수
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -84,7 +84,7 @@ const UserInfo = () => {
     axiosInstance
       .get(`/buildHistory?page=${pageNumber}`, { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
         setBuildHistory(response.data.content); // 서버에서 받은 페이지별 데이터를 상태에 설정
         setTotalPages(response.data.totalPages);
       });
@@ -95,19 +95,50 @@ const UserInfo = () => {
     projectBuildHistory(pageNumber);
   };
 
+  const renderPageButtons = () => {
+    const buttons = [];
+    const startPage = Math.floor((currentPage - 1) / MAX_PAGE_BUTTONS) * MAX_PAGE_BUTTONS + 1; // 현재 페이지가 속한 페이지 그룹의 시작 페이지 계산
+    const endPage = Math.min(startPage + MAX_PAGE_BUTTONS - 1, totalPages); // 페이지 그룹의 끝 페이지 계산
+    const nextPageButton = document.getElementById("nextPage");
+
+    if (nextPageButton) {
+      if (endPage === totalPages) {
+        nextPageButton.setAttribute("disabled", "disabled");
+      } else {
+        nextPageButton.removeAttribute("disabled");
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      buttons.push(
+        <button
+          key={i}
+          onClick={() => handleClickPage(i)}
+          className={`pagination-button ${currentPage === i ? "active" : ""}`}
+        >
+          {i}
+        </button>
+      );
+    }
+  
+    return buttons;
+  };
+
   // 다음 페이지로 이동하는 함수
-  const nextPage = () => {
-    const nextPageNumber = currentPage + 1;
-    setCurrentPage(nextPageNumber); // 다음 페이지로 이동
-    projectBuildHistory(nextPageNumber); // 다음 페이지의 데이터 가져오기
+  const prevPage = () => {
+    const prevStartPage = Math.min(1, Math.ceil(currentPage / MAX_PAGE_BUTTONS) * MAX_PAGE_BUTTONS - MAX_PAGE_BUTTONS);
+    setCurrentPage(prevStartPage);
+    projectBuildHistory(prevStartPage);
   };
   
-  // 이전 페이지로 이동하는 함수
-  const prevPage = () => {
-    const prevPageNumber = currentPage - 1;
-    setCurrentPage(prevPageNumber); // 이전 페이지로 이동
-    projectBuildHistory(prevPageNumber); // 이전 페이지의 데이터 가져오기
+  
+  const nextPage = () => {
+    const nextStartPage = Math.ceil(currentPage / MAX_PAGE_BUTTONS) * MAX_PAGE_BUTTONS + 1;
+    setCurrentPage(nextStartPage);
+    projectBuildHistory(nextStartPage);
   };
+  
+  
 
   return (
     <div className="userInfo-main">
@@ -134,7 +165,7 @@ const UserInfo = () => {
                   <td>{userInfo.issuanceTime}</td>
                   <td>{userInfo.tokenExpiresIn}</td>
                   <td>
-                    <span onClick={copyToken}>
+                    <span onClick={copyToken} style={{ cursor: "pointer" }}>
                       {userInfo.apiToken?.length > 20
                         ? userInfo.apiToken?.substring(0, 20) + "..."
                         : userInfo.apiToken}
@@ -149,14 +180,17 @@ const UserInfo = () => {
         {selectedTab === "projectHistory" && buildHistory && (
           <div className="table-container">
             <h3>Project Build History</h3>
-                        {/* 페이지 이동 버튼 */}
-                        <div className="pagination-container">
-                          <button onClick={prevPage} disabled={currentPage === 1} className="pagination-button"><img src={process.env.PUBLIC_URL + '/image/left.png'} alt="이전"></img></button>
-                          {[...Array(totalPages)].map((_, index) => (
-                           <button key={index + 1} onClick={() => handleClickPage(index + 1)} className={`pagination-button ${currentPage === index + 1 ? "active" : ""}`}>{index + 1}</button>
-                          ))}
-                          <button onClick={nextPage} disabled={currentPage === totalPages} className="pagination-button"><img src={process.env.PUBLIC_URL + '/image/right.png'} alt="다음"></img></button>
-                        </div>
+            {totalPages !== 0 && (
+                <div className="pagination-container">
+                <button id="prevPage" onClick={prevPage} disabled={currentPage <= MAX_PAGE_BUTTONS} className="pagination-button">
+                  <img src={process.env.PUBLIC_URL + '/image/left.png'} alt="이전"></img>
+                </button>
+                {renderPageButtons()}
+                <button id="nextPage" onClick={nextPage} className="pagination-button">
+                  <img src={process.env.PUBLIC_URL + '/image/right.png'} alt="다음"></img>
+                </button>
+              </div>
+            )}
 
             <table>
               <thead>
@@ -168,7 +202,7 @@ const UserInfo = () => {
                 </tr> 
               </thead>
               <tbody>
-                {buildHistory.map((build, index) => (
+                {totalPages !== 0 && buildHistory.map((build, index) => (
                   <tr key={index} className={build.status ? "success-status" : "failure-status"}>
                     <td>{build.id}</td>
                     <td>{build.projectName}</td>
